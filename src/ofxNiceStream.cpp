@@ -40,7 +40,7 @@ ofxNiceStream::~ofxNiceStream() {
 	// TODO Auto-generated destructor stub
 }
 
-void ofxNiceStream::setLogName(const string & name){
+void ofxNiceStream::setLogName(const std::string & name){
 	logName = name;
 }
 
@@ -67,12 +67,12 @@ void ofxNiceStream::gatherLocalCandidates(){
 	}
 }
 
-void ofxNiceStream::setRemoteCredentials(const string & ufrag, const string & pwd){
+void ofxNiceStream::setRemoteCredentials(const std::string & ufrag, const std::string & pwd){
 	nice_agent_set_remote_credentials(agent->getAgent(), streamID, ufrag.c_str(), pwd.c_str());
 }
 
-void ofxNiceStream::setRemoteCandidates(const vector<ofxICECandidate> & candidates){
-	vector<GSList *> candidates_lists(numberComponents,(GSList*)NULL);
+void ofxNiceStream::setRemoteCandidates(const std::vector<ofxICECandidate> & candidates){
+    std::vector<GSList *> candidates_lists(numberComponents,(GSList*)NULL);
 
 	for(size_t j=0;j<candidates.size();j++){
 		const ofxICECandidate & candidate =  candidates[j];
@@ -108,19 +108,19 @@ void ofxNiceStream::setRemoteCandidates(const vector<ofxICECandidate> & candidat
 	}
 }
 
-string ofxNiceStream::getLocalUFrag(){
+std::string ofxNiceStream::getLocalUFrag(){
 	gchar * ufrag, * pwd;
 	nice_agent_get_local_credentials(agent->getAgent(),streamID,&ufrag,&pwd);
 	return ufrag;
 }
 
-string ofxNiceStream::getLocalPwd(){
+std::string ofxNiceStream::getLocalPwd(){
 	gchar * ufrag, * pwd;
 	nice_agent_get_local_credentials(agent->getAgent(),streamID,&ufrag,&pwd);
 	return pwd;
 }
 
-int ofxNiceStream::sendData(const string & data, int component){
+int ofxNiceStream::sendData(const std::string & data, int component){
 	return nice_agent_send(agent->getAgent(),streamID,component,data.size()+1,data.c_str());
 }
 
@@ -141,7 +141,7 @@ int ofxNiceStream::getNumComponents(){
 }
 
 
-string ofxNiceStream::getName(){
+std::string ofxNiceStream::getName(){
 	return logName;
 }
 
@@ -162,7 +162,7 @@ void ofxNiceStream::gatheringDone(){
 	ofLogVerbose(logName) << local_ufrag << " " << local_password;
 
 
-	vector<ofxICECandidate> candidates;
+    std::vector<ofxICECandidate> candidates;
 
 
 	for(int i=1;i<numberComponents+1;i++){

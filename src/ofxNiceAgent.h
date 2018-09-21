@@ -37,16 +37,16 @@ public:
 	void setup(bool controlling, GMainLoop * mainLoop = NULL, NiceCompatibility compatibility=NICE_COMPATIBILITY_RFC5245, bool reliable=false);
 
 	/// setup a STUN server
-	void setStunServer(const string & ip, uint port);
+    void setStunServer(const std::string & ip, uint port);
 
 	/// setup a proxy, only to be used if using a TURN TCP relay
-	void setProxy(const string & ip, uint port, NiceProxyType type, const string & user="", const string & pwd="");
+    void setProxy(const std::string & ip, uint port, NiceProxyType type, const std::string & user="", const std::string & pwd="");
 
 	/// add a TURN server to use during discovery
-	void addRelay(const string & ip, uint port, const string & user, const string & pwd, NiceRelayType type);
+    void addRelay(const std::string & ip, uint port, const std::string & user, const std::string & pwd, NiceRelayType type);
 
 	/// add a stream to this agent
-	void addStream(shared_ptr<ofxNiceStream> stream);
+    void addStream(std::shared_ptr<ofxNiceStream> stream);
 
 	/// get the internal NiceAgent, usually only for internal usage of the addon
 	NiceAgent * getAgent();
@@ -56,10 +56,10 @@ public:
 private:
 	NiceAgent * agent;
 	GMainContext * ctx;
-	map<guint,shared_ptr<ofxNiceStream> > streamsIndex;
+    std::map<guint,std::shared_ptr<ofxNiceStream> > streamsIndex;
 
 	struct Relay{
-		Relay(const string & ip, uint port, const string & user, const string & pwd, NiceRelayType type)
+        Relay(const std::string & ip, uint port, const std::string & user, const std::string & pwd, NiceRelayType type)
 		:ip(ip)
 		,port(port)
 		,user(user)
@@ -67,14 +67,14 @@ private:
 		,type(type)
 		{}
 
-		string ip;
+        std::string ip;
 		uint port;
-		string user;
-		string pwd;
+        std::string user;
+        std::string pwd;
 		NiceRelayType type;
 	};
 
-	vector<Relay> relays;
+    std::vector<Relay> relays;
 
 	// nice callbacks
 	static void cb_candidate_gathering_done(NiceAgent *agent, guint stream_id, ofxNiceAgent * client);

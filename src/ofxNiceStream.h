@@ -16,15 +16,15 @@
 
 struct ofxICECandidate{
 	int component;
-	string foundation;
+    std::string foundation;
 	int generation;
-	string id;
-	string ip;
+    std::string id;
+    std::string ip;
 	int network;
 	int port;
 	int priority;
-	string protocol;
-	string type;
+    std::string protocol;
+    std::string type;
 };
 
 class ofxNiceAgent;
@@ -40,7 +40,7 @@ public:
 
 	/// set a specific log name for debugging purposes so we can know
 	/// which channel failed connecting...
-	void setLogName(const string & name);
+    void setLogName(const std::string & name);
 
 	/// setup this stream from an agent + the number of components, for example
 	/// a video stream can have 2 components, 1 for receiving and 1 for sending
@@ -56,16 +56,16 @@ public:
 	/// we should receive this from the other peer, usually through a session initiation
 	/// protocol like XMPP or SIP, once we have this credentials and the remote cnadidates
 	/// we can start the conection with the other peer
-	void setRemoteCredentials(const string & ufrag, const string & pwd);
+    void setRemoteCredentials(const std::string & ufrag, const std::string & pwd);
 
 	/// we should receive this from the other peer, usually thorugh a session initiation
 	/// protocol like XMPP or SIP
-	void setRemoteCandidates(const vector<ofxICECandidate> & candidates);
+    void setRemoteCandidates(const std::vector<ofxICECandidate> & candidates);
 
 	/// once the connection is stablisehd we can send data to the other peer using this method
 	/// this version sends a null terminated string and should not be used for sending binary data
 	/// returns the number of bytes sent or a negative error code
-	int sendData(const string & data, int component = 1);
+    int sendData(const std::string & data, int component = 1);
 
 	/// once the connection is stablisehd we can send data to the other peer using this method
 	/// this version can be used to send binary data
@@ -73,13 +73,13 @@ public:
 	int sendRawData(const char * data, size_t size, int component = 1);
 
 	/// get local ufrag usually used to send it to the other peer
-	string getLocalUFrag();
+    std::string getLocalUFrag();
 
 	/// get the local pwd, usually used to send it to the other peer
-	string getLocalPwd();
+    std::string getLocalPwd();
 
 	/// listen this event to receive the local candidates to be sent to the remote peer
-	ofEvent <vector<ofxICECandidate> > localCandidatesGathered;
+    ofEvent <std::vector<ofxICECandidate> > localCandidatesGathered;
 
 	/// listen this event to receive the data sent from the remote peer
 	ofEvent <ofBuffer> dataReceived;
@@ -109,7 +109,7 @@ public:
 	int getNumComponents();
 
 	/// get the log name of this stream
-	string getName();
+    std::string getName();
 
 	/// this needs to be called before gathering the local candidates
 	void listen();
@@ -127,7 +127,7 @@ private:
 	ofxNiceAgent * agent;
 	int streamID;
 	int numberComponents;
-	string logName;
+    std::string logName;
 };
 
 #endif /* OFXNICE_H_ */

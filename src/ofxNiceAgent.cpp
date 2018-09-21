@@ -75,12 +75,12 @@ void ofxNiceAgent::setup(bool controlling, GMainLoop * mainLoop, NiceCompatibili
 	}
 }
 
-void ofxNiceAgent::setStunServer(const string & ip, uint port){
+void ofxNiceAgent::setStunServer(const std::string & ip, uint port){
 	g_object_set(G_OBJECT(agent), "stun-server", ip.c_str(), NULL);
 	g_object_set(G_OBJECT(agent), "stun-server-port", port, NULL);
 }
 
-void ofxNiceAgent::setProxy(const string & ip, uint port, NiceProxyType type, const string & user, const string & pwd){
+void ofxNiceAgent::setProxy(const std::string & ip, uint port, NiceProxyType type, const std::string & user, const std::string & pwd){
 	if(ip!=""){
 		g_object_set(G_OBJECT(agent), "proxy-ip", ip.c_str(), NULL);
 	}else{
@@ -100,7 +100,7 @@ void ofxNiceAgent::setProxy(const string & ip, uint port, NiceProxyType type, co
 	}
 }
 
-void ofxNiceAgent::addRelay(const string & ip, uint port, const string & user, const string & pwd, NiceRelayType type){
+void ofxNiceAgent::addRelay(const std::string & ip, uint port, const std::string & user, const std::string & pwd, NiceRelayType type){
 	relays.push_back(Relay(ip,port,user,pwd,type));
 }
 
@@ -108,7 +108,7 @@ GMainContext * ofxNiceAgent::getContext(){
 	return ctx;
 }
 
-void ofxNiceAgent::addStream(shared_ptr<ofxNiceStream> stream){
+void ofxNiceAgent::addStream(std::shared_ptr<ofxNiceStream> stream){
 	if(stream->getStreamID()==0) ofLogError() << "trying to add stream that has not been setup yet";
 	streamsIndex[stream->getStreamID()] = stream;
 
